@@ -9,11 +9,13 @@
   box-sizing: border-box;
 
   font-style: italic;
-  font-size: 16px;
+  font-size: 22px;
 
   /* Color palette */
   --color-primary: #eebec6;
   --color-secondary: #f5c6c8;
+  --color-tertiary: #f1dcdd;
+  --color-quaternary: #fbfafa;
 }
 
 body {
@@ -37,7 +39,7 @@ main {
   font-size: 2em;
   z-index: 4;
   cursor: pointer;
-  margin: 12px 10px;
+  margin: 25px 10px;
 }
 
 #settings-container {
@@ -59,4 +61,23 @@ main {
   width: 92%;
   height: 92%;
   border-radius: 15px;
+  background-color: var(--color-tertiary);
+  z-index: 3;
+}
+
+#subject-selection {
+  background-color: var(--color-tertiary);
+  border-collapse: collapse;
+  margin: 20px auto;
+  padding: 10px;
+  border-radius: 4px;
+  width: 80%;
+  text-align: center;
+}
+
+#subject-selection td,
+#subject-selection th {
+  border: var(--color-secondary) solid 2px;
+  background-color: var(--color-quaternary);
+  padding: 10px;
 }

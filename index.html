@@ -27,7 +27,22 @@
         onclick="toggleSettings()"
       ></i>
       <menu id="settings-container">
-        <div id="settings"></div>
+        <div id="settings">
+          <table id="subject-selection">
+            <tr>
+              <th>Fach</th>
+              <th>Farbe</th>
+            </tr>
+            <template id="subject-template">
+              <tr>
+                <td contenteditable="true"></td>
+                <td class="color-input-cell">
+                  <input type="color" value="#ff0000" title="math-color" />
+                </td>
+              </tr>
+            </template>
+          </table>
+        </div>
       </menu>
     </main>
   </body>
