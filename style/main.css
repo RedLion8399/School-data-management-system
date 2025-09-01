@@ -1,0 +1,26 @@
+/* Global Configs and reset */
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  box-sizing: border-box;
+  font-style: italic;
+
+  /* Color palette */
+  --color-primary: #eebec6;
+  --color-secondary: #f5c6c8;
+}
+
+body {
+  background-color: var(--color-primary);
+}
+
+h1 {
+  background-color: var(--color-secondary);
+  text-align: center;
+}
+
+main {
+  display: flex;
+}
