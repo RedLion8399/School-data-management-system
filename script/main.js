@@ -1,4 +1,6 @@
 var settingsOpen;
+var timetable = { day: [] };
+var subjects = new Map();
 window.onload = function () {
     settingsOpen = false;
 };
@@ -41,16 +43,34 @@ function toggleSettings() {
 var subjectTable = document.getElementById("subject-selection");
 subjectTable.addEventListener("input", function (event) {
     var target = event.target;
-    var row = target.closest("tr");
-    addSubject(row);
+    updateSubjects(target.closest("table"));
     if (isRowEmpty()) {
         addRow();
     }
     deleteUnusedRows();
 });
-function addSubject(self) {
-    var subjectName;
-    var subjectColor;
+/**
+ * Clears the subjects map and refills it with the values from the given table.
+ *
+ * @param {HTMLTableElement} table - The table containing the subject names and
+ * coresponding colors.
+ */
+function updateSubjects(table) {
+    subjects.clear();
+    var rows = table.rows;
+    for (var i = 1; i < rows.length; i++) {
+        var cells = rows[i].cells;
+        var subjectName = cells[0].textContent;
+        var subjectColor = cells[1].querySelector("input").value;
+        if (subjectName == null) {
+            continue;
+        }
+        subjectName = subjectName.trim();
+        if (subjectName == "") {
+            continue;
+        }
+        subjects.set(subjectName, subjectColor);
+    }
 }
 /**
  * Checks if all cells in all rows of the table with the id "subject-selection"

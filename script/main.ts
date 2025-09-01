@@ -1,4 +1,6 @@
 let settingsOpen: boolean;
+let timetable: Timetable = { day: [] };
+let subjects: Map<string, string> = new Map();
 
 window.onload = () => {
   settingsOpen = false;
@@ -46,17 +48,39 @@ function toggleSettings() {
 let subjectTable = document.getElementById("subject-selection")!;
 subjectTable.addEventListener("input", (event) => {
   const target = event.target as HTMLInputElement;
-  const row = target.closest("tr") as HTMLTableRowElement;
-  addSubject(row);
+  updateSubjects(target.closest("table") as HTMLTableElement);
   if (isRowEmpty()) {
     addRow();
   }
   deleteUnusedRows();
 });
 
-function addSubject(self: HTMLElement) {
-  let subjectName;
-  let subjectColor;
+/**
+ * Clears the subjects map and refills it with the values from the given table.
+ *
+ * @param {HTMLTableElement} table - The table containing the subject names and
+ * coresponding colors.
+ */
+function updateSubjects(table: HTMLTableElement) {
+  subjects.clear();
+  let rows: HTMLCollectionOf<HTMLTableRowElement> = table.rows;
+  for (let i = 1; i < rows.length; i++) {
+    let cells: HTMLCollectionOf<HTMLTableCellElement> = rows[i].cells;
+    let subjectName: string | null = cells[0].textContent;
+    let subjectColor: string = cells[1].querySelector("input")!.value;
+
+    if (subjectName == null) {
+      continue;
+    }
+
+    subjectName = subjectName.trim();
+
+    if (subjectName == "") {
+      continue;
+    }
+
+    subjects.set(subjectName, subjectColor);
+  }
 }
 
 /**
@@ -114,4 +138,10 @@ function addRow() {
   ) as HTMLTemplateElement;
   let templateClone: Node = template.content.cloneNode(true);
   table.appendChild(templateClone);
+}
+
+interface Timetable {
+  day: {
+    subjects: string[];
+  }[];
 }
